@@ -1,0 +1,85 @@
+.container {
+  width: 90%;
+  float: right;
+  max-width: none;
+  min-width: 700px;
+}
+
+.calendar-heading {
+  position: fixed;
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+
+  height: 7em;
+  background-color: #404040;
+  min-width: 768px;
+}
+
+.calendar-heading h2 {
+  text-align: center;
+  margin-top: .5em;
+}
+
+.calendar-navigator {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-of-week {
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  display: grid;
+  font-size: 18px;
+  width: 100%;
+  margin-top: auto;
+  padding-right: 1.8em;
+  padding-left: 1em;
+}
+
+.day-of-week div {
+  border-right: .1px solid #666;
+  border-left: .1px solid #666;
+  padding-bottom: 0.2em;
+}
+
+.date-grid {
+  margin-left: 1em;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.date-cell {
+  flex-basis: calc(14.28%);
+  border: .1px solid #555;
+  color: #666;
+  padding-bottom: 75%;
+  height:135px;
+}
+
+.date-cell:hover {
+  background-color: #555;
+}
+
+#current-day {
+  background-color: #555;
+  color: #bbb;
+}
+
+.current-month {
+  background-color: #393939;
+  border-color: #999;
+  color: #999;
+}
+
+.task-cell {
+  background-color: #2db4cf;
+  color: white;
+  margin-bottom: 0.1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.25em;
+  line-height: 1.25;
+}

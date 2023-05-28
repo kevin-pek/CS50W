@@ -1,0 +1,120 @@
+{% extends "taskhub/layout.html" %}
+{% block title %}Tasks{% endblock %}
+
+{% load static %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'tasks.css' %}"/>{% endblock %}
+
+
+{% block body %}
+
+    <div class="heading">
+      <h2>My Tasks</h2>
+
+      <div class="navbar-dark dropdown">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dropdownMenuButton" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          {{ request.user.current_view }}
+        </button>
+          <div class="collapse navbar-collapse navbar-dark" id="dropdownMenuButton">
+            {% for view in request.user.task_views %}
+              <a class="dropdown-item" href="{% url 'changeview' view %}">{{ view }}</a>
+            {% endfor %}
+          </div>
+      </div>
+
+    </div>
+
+    <div class="sidebar">
+        <div>
+          <form class="subtask-form-container" action="{% url 'create_task' %}" method="post">
+            {% csrf_token %}
+              {{ formset.management_form }}
+              {% for form in formset %}
+                <div class="subtask-form">
+                  {{ form.content }}<br />
+                    <label>Start:</label>
+                  {{ form.start }}<br />
+                    <label>End:</label>
+                  {{ form.deadline }}<hr />
+                </div>
+              {% endfor %}
+
+              <button id="addSubtask" type="button">Add Subtask</button><br />
+
+              <input type="submit" value="Create Task" />
+          </form>
+        </div>
+    </div>
+
+    <div class="tasks-container">
+      {% if tasks.count == 0 %}
+        <h3>You have no tasks.</h3>
+      {% else %}
+        {% for task in tasks %}
+          <div class="task-container">
+            <div class="task-spacer">
+              <form method="post" action="{% url 'toggle_task' %}">
+                {% csrf_token %}
+                <input type="hidden" name="task_id" value="{{ task.pk }}">
+                <input type="submit" class="toggle-complete" value="">
+              </form>
+            </div>
+
+            {% if task.is_completed %}
+            <div class="task strikethrough">
+            {% else %}
+            <div class="task">
+            {% endif %}
+              {{ task.content }}<br /><br>
+              <div class="timestamps">
+                {% if task.start %}
+                  <i>started {{ task.start }}</i><br />
+                {% endif %}
+                <i>due {{ task.deadline }}</i><br />
+              </div>
+
+              {% if task.subtasks.count > 0 %}
+                {% for subtask in task.subtasks.all %}
+                  <div class="subtask-container">
+                    <div class="task-spacer">
+                      <form method="post" action="{% url 'toggle_task' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="task_id" value="{{ subtask.pk }}">
+                        <input type="submit" class="toggle-complete" value="">
+                      </form>
+                    </div>
+
+                    {% if subtask.is_completed %}
+                    <div class="task strikethrough">
+                    {% else %}
+                    <div class="task">
+                    {% endif %}
+                      {{ subtask.content }}<br /><br>
+                      <div class="timestamps">
+                        {% if subtask.start %}
+                          <i>started {{ subtask.start }}</i><br />
+                        {% endif %}
+                        <i>due {{ subtask.deadline }}</i><br />
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
+                <!--DELETE BUTTON-->
+                <form method="post" action="{% url 'delete_task' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="task_id" value="{{ task.pk }}">
+                  <button type="submit" class="close text-white remove-form" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+    {% block script %}
+    <script src="{% static 'tasks.js' %}"></script>
+    {% endblock %}
+
+{% endblock %}

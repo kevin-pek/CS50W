@@ -1,0 +1,114 @@
+.dropdown button {
+  margin-top: 0.1em;
+  margin-left: 1em;
+  background-color: #444;
+}
+
+.dropdown button:hover {
+  background-color: #555;
+}
+
+#dropdownMenuButton {
+  margin-left: 1em;
+  margin-top: 1.5em;
+  position: fixed;
+  border: .1px solid #999;
+  border-radius: .3em;
+  background-color: #444;
+}
+
+#dropdownMenuButton a {
+  color: #d9d9d9;
+}
+
+.sidebar {
+  float: left;
+  background-color: #444;
+  margin: 0.5em;
+  padding: 0.4em;
+  height: 100%;
+}
+
+.sidebar form {
+  display: flex;
+  flex-direction: column;
+}
+
+.subtask-form {
+  margin-bottom: 0.5em;
+}
+
+input {
+  margin-bottom: 0.1em;
+  width: 100%;
+  background-color: #333;
+  color: #d9d9d9;
+  border-radius: .3em;
+  border: .1px solid #555;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+input:hover {
+  background-color: #353535;
+}
+
+#addSubtask {
+  margin-top: 0.5em;
+  background-color: #333;
+  color: #d9d9d9;
+  border-radius: .3em;
+  border: .1px solid #555;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+#addSubtask:hover {
+  background-color: #373737;
+}
+
+.tasks-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0.5em;
+}
+
+.task-container {
+	border: 0.5px solid #666;
+	background-color: #444;
+	padding: 0.5em;
+  margin-right: 1em;
+  display: flex;
+  flex-direction: row;
+}
+
+.toggle-complete {
+  width: 0.5em;
+  height: 0.5em;
+  border: 0.5px solid white;
+  border-radius: 50%;
+  background-color: inherit;
+  display: inline-block;
+}
+
+.task {
+  margin-left:0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.subtask-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.strikethrough {
+	text-decoration: line-through;
+}

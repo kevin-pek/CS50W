@@ -1,0 +1,117 @@
+{% extends "taskhub/layout.html" %}
+{% block title %}Noticeboard{% endblock %}
+
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'noticeboard.css' %}"/>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<script src="{% static 'noticeboard.js' %}"></script>
+<script type="module">
+    import 'https://cdn.interactjs.io/v1.9.20/auto-start/index.js'
+    import 'https://cdn.interactjs.io/v1.9.20/actions/drag/index.js'
+    import 'https://cdn.interactjs.io/v1.9.20/actions/resize/index.js'
+    import 'https://cdn.interactjs.io/v1.9.20/modifiers/index.js'
+    import 'https://cdn.interactjs.io/v1.9.20/dev-tools/index.js'
+    import interact from 'https://cdn.interactjs.io/v1.9.20/interactjs/index.js'
+
+    //INTERACT JS NOTES objects
+    const note = interact(".note")
+    note
+      .draggable({
+        modifiers: [
+          interact.modifiers.snap({
+            targets: [
+              interact.snappers.grid({ x: 10, y: 10,
+                limits: {
+                  top: 0,
+                  left: 0,
+                }
+              })
+            ],
+            range: Infinity,
+            relativePoints: [ { x: 0, y: 0 } ]
+          }),
+          interact.modifiers.restrict({
+            elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
+            endOnly: true
+          })
+        ],
+        listeners: {
+          move (event) {
+            let target = event.target
+            // keep the dragged position in the data-x/data-y attributes
+            let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+            let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+            // translate the element
+            target.style.webkitTransform =
+              target.style.transform =
+                'translate(' + x + 'px, ' + y + 'px)'
+
+            // update the posiion attributes
+            target.setAttribute('data-x', x)
+            target.setAttribute('data-y', y)
+          }
+        }}
+      )
+      .resizable({
+        edges: { top: true, left: true, bottom: true, right: true },
+        modifiers: [
+        interact.modifiers.restrictSize({
+          min: { width: 100, height: 100 }
+          })
+        ],
+        listeners: {
+          move: function (event) {
+            let { x, y } = event.target.dataset
+
+            x = (parseFloat(x) || 0) + event.deltaRect.left
+            y = (parseFloat(y) || 0) + event.deltaRect.top
+
+            Object.assign(event.target.style, {
+              width: `${event.rect.width}px`,
+              height: `${event.rect.height}px`,
+              transform: `translate(${x}px, ${y}px)`
+            })
+
+            // update the posiion attributes
+            Object.assign(event.target.dataset, { x, y })
+          }
+        }
+      })
+      .on(['dragend', 'resizeend'], savenote);
+
+      function savenote(event) {
+        updateNote(event.target)
+      }
+  </script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="heading">
+      <h2>My Noticeboard</h2>
+<!---
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for board in request.user.boards.all %}
+              <a class="dropdown-item" onclick="loadboard()">{{ board.title }}</a>
+            {% endfor %}
+          </div>
+      </div>
+--->
+	</div>
+
+    <div class="container">
+      <div class="board">
+      </div>
+      <div class="button-container">
+        <button id="create" class="text-white"><span>&plus;</span></button>
+      </div>
+    </div>
+
+{% endblock %}
