@@ -1,0 +1,27 @@
+textarea {
+    min-height: 400px;
+}
+
+#email-container {
+  width: 100%;
+}
+
+.email-false {
+  background-color: white;
+}
+
+.email-true {
+  background-color: #E3DEE1;
+}
+
+#email-container button {
+  width: 100%;
+}
+
+#email-container button i {
+  float: right;
+}
+
+#email-container button strong {
+  float: left;
+}
