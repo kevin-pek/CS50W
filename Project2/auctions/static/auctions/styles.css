@@ -1,0 +1,74 @@
+
+a {
+  display: block;
+}
+
+h2, h4 {
+  margin: 20px;
+}
+
+.header  {
+  background-color: #0C6FC0;
+  color: #FFFFFF;
+  overflow: hidden;
+  padding:20px;
+}
+
+.nav {
+  margin-top: 10px;
+}
+
+.listing_block {
+  border: 1px solid;
+  padding: 10px;
+  margin: 10px 20px;
+}
+
+.img_container {
+  display: inline-block;
+  width: 200px;
+}
+
+img {
+  max-height: 250px;
+  max-width: 200px;
+}
+
+.listing_info {
+  height: 100%;
+  margin-left: 100px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.field_container {
+  display: block;
+  width: 70%;
+  margin: 15px;
+}
+
+.field_label {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+  vertical-align: top;
+}
+
+.field_box {
+  display: inline-block;
+}
+
+textarea {
+  width: 500px;
+  height: 200px;
+}
+
+.comment_container {
+  margin: 20px 0 50px 20px;
+}
+
+.comment {
+  border: 1px solid;
+  padding: 10px;
+  margin-bottom: 20px;
+}

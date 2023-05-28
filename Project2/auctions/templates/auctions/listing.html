@@ -1,0 +1,75 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if listing %}
+        <h2>Listing: {{ listing.title }}</h2>
+
+        <div class='comment_container'>
+        {% if listing.image %}
+            <img src="{{ listing.image.url }}"/>
+        {% endif %}
+        <h6>{{ listing.description }}</h6>
+        <p>posted by {{ listing.creator.username }} <br /> Category: {{ listing.category }}</p>
+        <h4>Price: ${{ listing.price }}</h4>
+
+        {% if listing.is_closed %}
+            {% if highest_bid.bidder != request.user %}
+                <h4>This listing is closed. Winner: {{ highest_bid.bidder.username }} with a bid of ${{ highest_bid.price }}</h4>
+            {% else %}
+            <h4>Congratulations! You won this auction with a bid of ${{ highest_bid.price }}</h4>
+            {% endif %}
+        {% else %}
+            {% if highest_bid %}
+                <h4>Highest Bid: ${{ highest_bid.price }} by {{ highest_bid.bidder.username }}</h4>
+            {% else %}
+                <h4>No Bids for this listing.</h4>
+            {% endif %}
+            {% if listing.creator != request.user and highest_bid.bidder != request.user %}
+                <form action="{% url 'view_listing' listing.id %}" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input name="bid" type="submit" value="Place Bid">
+                </form>
+            {% endif %}
+        {% endif %}
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+
+        <form action="{% url 'view_listing' listing.id %}" method="post">
+        {% csrf_token %}
+        {% if listing.creator == request.user %}
+            {% if listing.is_closed == False %}
+                <input name="close_listing" type="submit" value="Close this Listing">
+                <input name="delete" type="submit" value="Delete this Listing">
+            {% endif %}
+        {% else %}
+            {% if listing in request.user.watchlist.all %}
+                <input name="watchlist" type="submit" value="Remove from Watchlist">
+            {% else %}
+                <input name="watchlist" type="submit" value="Add to my Watchlist">
+            {% endif %}
+        </form>
+        {% endif %}
+      </div>
+        <div class='comment_container'>
+            <h4>Comments:</h4>
+            {% for comment in comments %}
+                <div class='comment'>
+                    <h6>{{ comment.commenter.username }}</h6>
+                    <p>{{ comment.content }}</p>
+                </div>
+            {% empty %}
+                <h6>No Comments</h6>
+            {% endfor %}
+
+            <form action="{% url 'view_listing' listing.id %}" method="post">
+            {% csrf_token %}
+                <textarea name='content'></textarea>
+                <br />
+                <input name="comment" type="submit" value="Add Comment">
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
