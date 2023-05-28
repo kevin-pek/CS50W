@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+* {
+  outline: none;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+a {
+  display: block;
+  float: right;
+  padding: 1em;
+  text-decoration: none;
+  color: black;
+  font-size:14px;
+  margin: 10px;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  width: 100%;
+  top: 0;
+  margin: 0 auto;
+}
+
+#nav_img {
+  padding: 1em 1em .5em 1em;
+  margin-bottom: 0;
+}
+
+h3 {
+  color: #DB4437;
+  margin: 1.5em;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: #f1f1f1;
+}
+
+header {
+  font-size: 16px;
+}
+
+.container {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 10em;
+}
+
+.box {
+  width: 30em;
+  padding: 1em;
+  border-radius: 2em;
+  border-color: #d2d2d2;
+  border-style: solid;
+  border-width: .1em;
+  margin-bottom: 1em;
+}
+
+.box:hover {
+  box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%), 0px -4px 6px -5px hsl(0, 0%, 70%);
+}
+
+.button {
+  border: 1px solid;
+  border-radius: .3em;
+  padding: .7em;
+  background-color: #fff;
+  border-color: white;
+}
+
+.button:hover {
+  box-shadow: 0 4px 6px -5px hsl(0, 0%, 70%);
+  border-color: #bbb;
+}
+
+.adv_container {
+  margin: 2em;
+}
+
+.adv_form {
+  min-width: 30em;
+}
+
+.adv_box label {
+  font-size: 12px;
+  width: 12em;
+  text-align: left;
+  display: inline-block;
+}
+
+.text_box {
+  margin-top: 1em;
+  width: 60%;
+  padding: .4em;
+  border-style: solid;
+  border-color: #d2d2d2;
+  border-width: .1em;
+}
+
+input:focus {
+  border-color: #4285F4;
+}
+
+.spacer {
+  width: 144px;
+  height: 14px;
+  display: inline-block;
+  float: left;
+}
+
+.button_con {
+  margin-left: 1em;
+  width: 60%;
+  display: inline-block;
+  text-align: right;
+}
+
+.blue_button {
+  margin: 0;
+  font-size: 11px;
+  border: 1px solid;
+  border-color: blue;
+  border-radius: .2em;
+  padding: .8em 1em;
+  color: #fff;
+  background-color: #4285F4;
+}
+
+.blue_button:hover {
+  box-shadow: 0 -6px 10px -10px inset hsl(0, 0%, 30%);
+}
+
+.footer {
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+.footer div {
+  display: block;
+  padding: .5em;
+  padding-left: 2em;
+  border-top: 1px solid;
+  border-color: #d2d2d2;
+  word-spacing: 1em;
+  width: 100%;
+}
