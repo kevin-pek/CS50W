@@ -1,0 +1,26 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <h2>{{ user.username }}</h2>
+    <i>{{ user.email }}</i>
+    <br />
+    Followers: {{ user.followers.count }}
+    Following: {{ user.following.count }}
+    {% if request.user != user %}
+        {% if follows == False %}
+            <button onclick="location.href='{% url 'follow' user.id %}';" class="btn btn-primary" id="follow">Follow</button>
+        {% else %}
+            <button onclick="location.href='{% url 'follow' user.id %}';" class="btn btn-primary" id="follow">Unfollow</button>
+        {% endif %}
+    {% endif %}
+    <hr />
+    {% for post in posts %}
+        <div class="post">
+            <h4>{{ post.user.username }}</h4>
+            <div class="content">{{ post.content }}</div>
+            likes: {{ post.likes.count }}
+            <br />
+            <i>posted on {{ post.timestamp }}</i>
+        </div>
+    {% endfor %}
+{% endblock %}
